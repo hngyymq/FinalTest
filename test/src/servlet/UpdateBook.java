@@ -14,23 +14,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-/**
- * 添加图书方法
- */
-@WebServlet("/AddBook")
-public class AddBook extends HttpServlet {
+@WebServlet("/UpdateBook")
+public class UpdateBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public AddBook() {
+    public UpdateBook() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		String id = request.getParameter("id");
 		String bookname = request.getParameter("bookname");
 		String author = request.getParameter("author");
 		String price = request.getParameter("price");
@@ -43,10 +40,9 @@ public class AddBook extends HttpServlet {
 		String url="jdbc:mysql://localhost:3306/test";
 		String dbuser="root";
     	String dbpassword="root";
-    	String sql="insert into book(bookname,author,price,type,desca) values(?,?,?,?,?)";
+    	String sql="update book set bookname=?,author=?,price=?,type=?,desca=? where id=? ";
     	Connection con=null;
     	PreparedStatement st=null;
-    	ResultSet resultSet =null;
     	
     	try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -57,13 +53,13 @@ public class AddBook extends HttpServlet {
 			st.setString(3, price);
 			st.setString(4, type);
 			st.setString(5, desca);
-			st.execute();	
-			request.setAttribute("message", "你成功添加图书！");
-			request.getRequestDispatcher("add.jsp").forward(request, response);
+			st.setString(6, id);
+			st.executeUpdate();	
+			response.sendRedirect("BookManager");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("message", "添加图书失败！，请检查图书金额是否只包含数字！");
-			request.getRequestDispatcher("add.jsp").forward(request, response);
+			request.setAttribute("message", "更新图书失败");
+			request.getRequestDispatcher("web.jsp").forward(request, response);
 		}finally {
 			try {
 				st.close();
@@ -72,8 +68,6 @@ public class AddBook extends HttpServlet {
 				e.printStackTrace();
 			}    
 		}
-    
-		
 	}
 
 }

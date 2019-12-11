@@ -14,56 +14,61 @@ import javax.servlet.http.HttpServletResponse;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
+import bean.Book;
+
 /**
  * 添加图书方法
  */
-@WebServlet("/AddBook")
-public class AddBook extends HttpServlet {
+@WebServlet("/EditBook")
+public class EditBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public AddBook() {
+    public EditBook() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String bookname = request.getParameter("bookname");
-		String author = request.getParameter("author");
-		String price = request.getParameter("price");
-		String type = request.getParameter("type");
-		String desca = request.getParameter("desca");
+		String id = request.getParameter("id");
 		
-		/**
-		 * 连接数据库并添加数据
-		 */
 		String url="jdbc:mysql://localhost:3306/test";
 		String dbuser="root";
     	String dbpassword="root";
-    	String sql="insert into book(bookname,author,price,type,desca) values(?,?,?,?,?)";
+    	String sql="select * from book where id=?";
     	Connection con=null;
     	PreparedStatement st=null;
     	ResultSet resultSet =null;
-    	
+		
     	try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con=(Connection) DriverManager.getConnection(url, dbuser, dbpassword);
 			st=(PreparedStatement) con.prepareStatement(sql);
-			st.setString(1, bookname);
-			st.setString(2, author);
-			st.setString(3, price);
-			st.setString(4, type);
-			st.setString(5, desca);
-			st.execute();	
-			request.setAttribute("message", "你成功添加图书！");
-			request.getRequestDispatcher("add.jsp").forward(request, response);
+			st.setInt(1, Integer.parseInt(id));
+			resultSet = st.executeQuery();	
+			
+			Book prebook = new Book();
+			while(resultSet.next()) {
+				//获取数据
+				String prebookname = resultSet.getString("bookname");
+				String preauthor = resultSet.getString("author");
+				double preprice = resultSet.getDouble("price");
+				String predesca = resultSet.getString("desca");
+				String pretype = resultSet.getString("type");
+				
+				//封装数据
+				prebook.setId(Integer.parseInt(id));
+				prebook.setBookname(prebookname);
+				prebook.setAuthor(preauthor);
+				prebook.setPrice(preprice);
+				prebook.setDesca(predesca);
+				prebook.setDesca(pretype);
+			}
+			request.setAttribute("book", prebook);
+			request.getRequestDispatcher("edit.jsp").forward(request, response);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("message", "添加图书失败！，请检查图书金额是否只包含数字！");
-			request.getRequestDispatcher("add.jsp").forward(request, response);
+			request.setAttribute("message", "修改失败");
+			request.getRequestDispatcher("BookManager").forward(request, response);
 		}finally {
 			try {
 				st.close();
@@ -72,8 +77,11 @@ public class AddBook extends HttpServlet {
 				e.printStackTrace();
 			}    
 		}
-    
 		
+		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 
 }

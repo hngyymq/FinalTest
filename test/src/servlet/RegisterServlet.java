@@ -32,6 +32,7 @@ public class RegisterServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+				request.setCharacterEncoding("UTF-8");
 				//浏览器所携带的信息都在request中
 				//所以从request获取 参数(英文名Parameter) 中的user和password
 				//getParameter("user") 方法中的user 是表单中input的name值
@@ -47,9 +48,9 @@ public class RegisterServlet extends HttpServlet {
 		    	String dbpassword="root";
 //		    	定义查询语句 其中？是匹配符 后面去加参数的时候替代这个？
 //		    	查询用户是否存在
-		    	String sql1="select * from user where  user=? and password=?";
+		    	String sql1="select * from user where  user=? and password=? and role=0";
 //		    	如果用户不存在添加用户
-		    	String sql2="insert into user(user,password) values(?,?)";
+		    	String sql2="insert into user(user,password,role) values(?,?,'0')";
 //		    	定义连接
 		    	Connection con=null;
 //		    	定义执行平台

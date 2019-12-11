@@ -17,7 +17,8 @@
       <col width="50">
       <col width="50">
       <col width="50">
-      <col width="200">
+      <col width="300">
+      <col width="30">
       <col>
     </colgroup>
     <thead>
@@ -28,6 +29,7 @@
         <th>类型</th>
         <th>价格</th>
         <th>描述</th>
+        <th>操作</th>
       </tr> 
     </thead>
     <c:forEach items="${booklist}" var="book">
@@ -37,7 +39,7 @@
         <td>${book.bookname}</td>
         <td>${book.author}</td>
         <td>
-        	<c:if test="${book.type=='wenxue'}">
+        <c:if test="${book.type=='wenxue'}">
         		文学
         	</c:if> 
         	<c:if test="${book.type=='kehuan'}">
@@ -55,6 +57,16 @@
         </td>
         <td>${book.price} </td>
         <td>${book.desca} </td>
+        <td>
+			<div class="layui-btn-group">
+			  <button type="button" onclick="editBook(${book.id})" class="layui-btn layui-btn-primary layui-btn-sm">
+			    <i class="layui-icon">&#xe642;</i>
+			  </button>
+			  <button type="button" onclick="deleteBook(${book.id})"  class="layui-btn layui-btn-primary layui-btn-sm">
+			    <i class="layui-icon">&#xe640;</i>
+			  </button>
+			</div>
+		</td>
       </tr>
     </tbody>
     </c:forEach>
@@ -65,8 +77,20 @@
 <script src="myjs/tab.js"></script>
 <script>
   var $ =layui.$;
+  var layer =layui.layer;
   $("#flush").on('click',function(){
 	  window.location.href="QueryAllBookServlet"; 
   });
+  
+  function deleteBook(id){
+	  window.location.href="DeleteBook?id="+id;
+  }
+  
+  function editBook(id){
+	  window.location.href="EditBook?id="+id;
+  }
+//页面层
+
+  
 </script>
 </html>

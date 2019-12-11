@@ -40,6 +40,12 @@
 	            <input type="password" name="password" required lay-verify="required" placeholder="密码" autocomplete="off"
 	                   class="layui-input">
 	        </div>
+	         <div class="layui-input-inline">
+			      <select name="role" lay-verify="required">
+			        <option value="0">用户</option>
+			        <option value="1">管理员</option>
+			      </select>
+	        </div>
 	        <div class="layui-input-inline login-btn">
 	            <button lay-submit lay-filter="login" class="layui-btn">登录</button>
 	        </div>

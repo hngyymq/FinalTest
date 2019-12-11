@@ -1,12 +1,10 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,14 +17,11 @@ import com.mysql.jdbc.PreparedStatement;
 
 import bean.Book;
 
-/**
- * 查询方法
- */
-@WebServlet("/QueryAllBookServlet")
-public class QueryAllBookServlet extends HttpServlet {
+@WebServlet("/BookManager")
+public class BookManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public QueryAllBookServlet() {
+    public BookManager() {
         super();
     }
 
@@ -56,7 +51,7 @@ public class QueryAllBookServlet extends HttpServlet {
 				String preauthor = resultSet.getString("author");
 				double preprice = resultSet.getDouble("price");
 				String predesca = resultSet.getString("desca");
-				String type = resultSet.getString("type");
+				String pretype = resultSet.getString("type");
 				
 				//封装数据
 				prebook.setId(preid);
@@ -64,7 +59,7 @@ public class QueryAllBookServlet extends HttpServlet {
 				prebook.setAuthor(preauthor);
 				prebook.setPrice(preprice);
 				prebook.setDesca(predesca);
-				prebook.setType(type);
+				prebook.setType(pretype);
 				//在集合中添加book
 				booklist.add(prebook);
 			}
@@ -83,7 +78,7 @@ public class QueryAllBookServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("booklist", booklist);
-		request.getRequestDispatcher("product.jsp").forward(request, response);
+		request.getRequestDispatcher("bookmanager.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

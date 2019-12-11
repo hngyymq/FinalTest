@@ -37,25 +37,17 @@ public class LoginServlet extends HttpServlet {
 	
 	//处理get请求(通过表单提交去访问)
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		//浏览器所携带的信息都在request中
 		//所以从request获取 参数(英文名Parameter) 中的user和password
 		//getParameter("user") 方法中的user 是表单中input的name值
 		String user = request.getParameter("user");
 		String password = request.getParameter("password");
+		String role = request.getParameter("role");
 		
 		//获取session 为以后将用户信息放入session做准备
 		HttpSession session = request.getSession();
-		
-		
-//----------------------------------------------------		
-//		简单的静态查询
-//		if("user".equals(user)&&"root".equals(password)) {
-//			System.out.println("登录成功！！");
-//		}else {
-//			System.out.println("登录失败！！");
-//		}
-//----------------------------------------------------	
-		
+
 //		动态查询(将user和password传入 数据库中进行查询，如果找到记录并返回【就是说明有账号密码正确】)
 //		定义数据库的地址 其中jdbc:mysql://localhost:3306是固定写法 ，/demo是mysql中的哪个数据库  我新建的库叫demo
 		String url="jdbc:mysql://localhost:3306/test";
@@ -63,7 +55,8 @@ public class LoginServlet extends HttpServlet {
     	String dbuser="root";
     	String dbpassword="root";
 //    	定义查询语句 其中？是匹配符 后面去加参数的时候替代这个？
-    	String sql="select * from user where  user=? and password=?";
+    	String sql="select * from user where  user=? and password=? and role=?";
+    	
 //    	定义连接
     	Connection con=null;
 //    	定义执行平台
@@ -82,6 +75,7 @@ public class LoginServlet extends HttpServlet {
 //			设置参数 替代查询语句中的 ？  方法的第一个参数是 索引值（从1开始） ,第二个参数是你想查询的内容
 			st.setString(1, user);
 			st.setString(2, password);
+			st.setString(3, role);
 //			进行查询 --》并返回结果到resultSet 至此数据就已经查询出来了
 			resultSet = st.executeQuery();
 			
@@ -92,16 +86,23 @@ public class LoginServlet extends HttpServlet {
 				int id = resultSet.getInt("id");
 				String preuser = resultSet.getString("user");
 				String prepassword = resultSet.getString("password");
+				String prerole =resultSet.getString("role");
 				System.out.println(preuser+"登录成功");
 				User sessionUser = new User();
 				sessionUser.setId(id);
 				sessionUser.setUser(preuser);
 				sessionUser.setPassword(prepassword);
+				sessionUser.setRole(prerole);
 				//将用户放入session中
 				session.setAttribute("user", sessionUser);
-//				成功后跳转到主页面【不需要携带数据所以用重定向】
-				response.sendRedirect("index.jsp");
-				return;
+				
+				if("0".equals(role)) {
+					response.sendRedirect("index.jsp");
+					return;
+				}else {
+					response.sendRedirect("web.jsp");
+					return;
+				}
 			}
 			
 //				没找到用户 --》设置错误信息

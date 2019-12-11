@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>前端</title>
+  <title>图书管理系统(用户界面)</title>
   <link rel="stylesheet" href="layui/css/layui.css">
 </head>
 
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
-    <div class="layui-logo">图书管理系统</div>
+    <div class="layui-logo">图书管理系统(用户界面)</div>
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
@@ -31,10 +31,6 @@
         <li class="layui-nav-item">
        	 <a href="javascript:;" data-id="1" data-title="图书列表" data-url="QueryAllBookServlet"
        	  class="site-demo-active" data-type="tabAdd">商品列表</a>
-        </li>
-        <li class="layui-nav-item">
-      	 <a href="javascript:;" data-id="2" data-title="添加图书" data-url="add.jsp"
-           class="site-demo-active" data-type="tabAdd">添加图书</a>
         </li>
       </ul>
     </div>

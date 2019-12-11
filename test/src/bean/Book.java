@@ -6,6 +6,7 @@ public class Book {
 	private String author;
 	private double price;
 	private String desca;
+	private String type;
 	public Integer getId() {
 		return id;
 	}
@@ -35,6 +36,12 @@ public class Book {
 	}
 	public void setDesca(String desca) {
 		this.desca = desca;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	@Override
 	public String toString() {
