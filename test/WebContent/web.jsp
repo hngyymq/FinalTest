@@ -16,7 +16,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          <img src="mycss/user.jpg" class="layui-nav-img">
         </a>
       </li>
       <li class="layui-nav-item"><a href="LoginOutServlet">退出登录</a></li>
