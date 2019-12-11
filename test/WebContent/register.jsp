@@ -10,6 +10,7 @@
 </head>
 <body>
 	<div class="login-main">
+	<b style="color:skyblue">源码下载: <a href="https://github.com/hngyymq/FinalTest">https://github.com/hngyymq/FinalTest</a></b>
     <header class="layui-elip" style="width: 82%">注册页</header>
  
     <!-- 表单选项 -->
