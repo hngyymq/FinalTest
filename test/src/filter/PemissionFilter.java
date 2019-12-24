@@ -36,7 +36,7 @@ public class PemissionFilter implements Filter {
         // 获取登录状态
         User flag = (User) session.getAttribute("user");
         /* 判断是否是登录页、首页、登录servlet */
-        if (servletPath != null && (servletPath.equals("login.jsp")  || servletPath.equals("/LoginServlet")|| servletPath.equals("/register.jsp") || servletPath.equals("/RegisterServlet"))) {
+        if (servletPath != null && (servletPath.equals("login.jsp")  || servletPath.equals("/LoginServlet")|| servletPath.equals("/register.jsp") || servletPath.equals("/RegisterServlet")|| servletPath.contains("layui")|| servletPath.contains("mycss")|| servletPath.contains("myjs"))) {
             // 是则直接转发到下一组件
             chain.doFilter(request, response);
         } else {

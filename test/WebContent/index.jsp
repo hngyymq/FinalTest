@@ -46,7 +46,6 @@
   
   <div class="layui-footer">
     <!-- 底部固定区域 -->
-    © sias.com - 期末测试 <b style="color:skyblue">源码下载: <a href="https://github.com/hngyymq/FinalTest">https://github.com/hngyymq/FinalTest</a></b>
   </div>
 </div>
 <script src="layui/layui.all.js"></script>

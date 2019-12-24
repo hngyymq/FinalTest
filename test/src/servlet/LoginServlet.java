@@ -104,7 +104,6 @@ public class LoginServlet extends HttpServlet {
 					return;
 				}
 			}
-			
 //				没找到用户 --》设置错误信息
 				request.setAttribute("message", "账号密码不匹配登录失败！");
 //				转发到登录页面【因为要携带错误数据，所以用转发】

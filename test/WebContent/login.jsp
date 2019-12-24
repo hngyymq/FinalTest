@@ -16,7 +16,6 @@
 </head>
 <body>
 	<div class="login-main">
-		<b style="color:skyblue">源码下载: <a href="https://github.com/hngyymq/FinalTest">https://github.com/hngyymq/FinalTest</a></b>
 	    <header class="layui-elip">登录</header>
 	    <!-- action指向的是servlet的路径
 	    	 method是post 安全

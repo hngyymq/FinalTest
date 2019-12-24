@@ -79,7 +79,7 @@
   var $ =layui.$;
   var layer =layui.layer;
   $("#flush").on('click',function(){
-	  window.location.href="QueryAllBookServlet"; 
+	  window.location.href="BookManager"; 
   });
   
   function deleteBook(id){

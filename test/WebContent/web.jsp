@@ -8,7 +8,6 @@
   <title>图书管理系统(后端界面)</title>
   <link rel="stylesheet" href="layui/css/layui.css">
 </head>
-
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
@@ -17,6 +16,7 @@
       <li class="layui-nav-item">
         <a href="javascript:;">
           <img src="mycss/user.jpg" class="layui-nav-img">
+           ${sessionScope.user.user}
         </a>
       </li>
       <li class="layui-nav-item"><a href="LoginOutServlet">退出登录</a></li>
@@ -53,7 +53,6 @@
   
   <div class="layui-footer">
     <!-- 底部固定区域 -->
-    © sias.com - 期末测试 <b style="color:skyblue">源码下载: <a href="https://github.com/hngyymq/FinalTest">https://github.com/hngyymq/FinalTest</a></b>
   </div>
 </div>
 <script src="layui/layui.all.js"></script>
